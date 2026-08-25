@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +13,14 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background: #f5f6f8;
       color: #17202a;
     }
 
     .container {
       max-width: 600px;
-      margin: 0 auto;
+      margin: auto;
       padding: 35px 16px 50px;
     }
 
@@ -127,12 +125,38 @@
       background: #e5e7eb;
     }
 
-    .notice {
+    .warning {
       margin-top: 18px;
-      font-size: 12px;
+      padding: 12px;
+      border-radius: 9px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 13px;
       line-height: 1.5;
-      color: #667085;
-      text-align: center;
+    }
+
+    .sources {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .sources-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .source-link {
+      display: block;
+      margin: 8px 0;
+      color: #1d4ed8;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .source-link:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 500px) {
@@ -157,73 +181,102 @@
       .value {
         text-align: left;
       }
-
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="header">
-      <h1>Travel Information</h1>
+  <div class="header">
+    <h1>Travel Information</h1>
+  </div>
+
+
+  <div class="card">
+
+    <!-- PASSPORT NATIONALITY -->
+
+    <label for="passport">
+      Passport Nationality
+    </label>
+
+    <input
+      id="passport"
+      type="text"
+      placeholder="Example: Saudi Arabia"
+      autocomplete="off"
+    >
+
+
+    <!-- DESTINATION -->
+
+    <label for="destination">
+      Destination
+    </label>
+
+    <input
+      id="destination"
+      type="text"
+      placeholder="Example: Japan"
+      autocomplete="off"
+    >
+
+
+    <!-- CHECK -->
+
+    <button
+      class="button"
+      onclick="checkTravelInformation()"
+    >
+      Check TIM
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div id="result"></div>
+
+
+    <!-- OFFICIAL SOURCES -->
+
+    <div class="sources">
+
+      <div class="sources-title">
+        Official References
+      </div>
+
+      <a
+        class="source-link"
+        href="https://www.emirates.com/sa/english/before-you-fly/visa-passport-information/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Emirates — Visa & Passport Information
+      </a>
+
+      <a
+        class="source-link"
+        href="https://www.flydubai.com/en/flying-with-us/visas-and-passports/visa-passport-requirements"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        flydubai — Visa & Passport Requirements
+      </a>
+
     </div>
 
 
-    <div class="card">
-
-      <!-- Passport Nationality -->
-
-      <label for="passport">
-        Passport Nationality
-      </label>
-
-      <input
-        id="passport"
-        type="text"
-        placeholder="Example: Saudi"
-        autocomplete="off"
-      >
-
-
-      <!-- Destination -->
-
-      <label for="destination">
-        Destination
-      </label>
-
-      <input
-        id="destination"
-        type="text"
-        placeholder="Example: Japan"
-        autocomplete="off"
-      >
-
-
-      <!-- Check Button -->
-
-      <button
-        class="button"
-        onclick="checkTravelInformation()"
-      >
-        Check TIM
-      </button>
-
-
-      <!-- Result -->
-
-      <div id="result"></div>
-
-
-      <div class="notice">
-        Travel requirements must be verified against the
-        current approved TIM source before operational use.
-      </div>
-
+    <div class="warning">
+      This tool is currently a reference interface.
+      Always verify the final travel requirements against
+      the current official TIM/IATA source before passenger acceptance.
     </div>
 
   </div>
+
+</div>
 
 
 <script>
@@ -245,7 +298,7 @@ function checkTravelInformation() {
 
 
   /*
-   * Validate input
+   * INPUT VALIDATION
    */
 
   if (!passport || !destination) {
@@ -273,14 +326,11 @@ function checkTravelInformation() {
 
 
   /*
-   * TEMPORARY RESULT
+   * CURRENT VERSION
    *
-   * This is only the interface.
-   *
-   * The real version will connect to
-   * the approved TIM / Timatic source.
+   * The live TIM connection will be added later.
+   * No fictional visa result is generated here.
    */
-
 
   result.innerHTML = `
 
@@ -324,7 +374,7 @@ function checkTravelInformation() {
         </span>
 
         <span class="value">
-          —
+          Verify Official Source
         </span>
 
       </div>
@@ -337,7 +387,7 @@ function checkTravelInformation() {
         </span>
 
         <span class="value">
-          —
+          Verify Official Source
         </span>
 
       </div>
@@ -350,14 +400,14 @@ function checkTravelInformation() {
         </span>
 
         <span class="value">
-          —
+          Verify Official Source
         </span>
 
       </div>
 
 
       <div class="final-result">
-        LIVE TIM CHECK REQUIRED
+        OFFICIAL TIM CHECK REQUIRED
       </div>
 
     </div>
@@ -367,7 +417,7 @@ function checkTravelInformation() {
 
 
 /*
- * Prevent HTML injection
+ * SECURITY
  */
 
 function escapeHTML(value) {
