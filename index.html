@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Travel Information</title>
 
+  <!-- Official IATA Timatic Widget CSS -->
+  <link
+    rel="stylesheet"
+    href="https://widget.timatic.iata.org/scripts/v2/iata-timatic-style-2.0.0.css"
+  >
+
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
       background: #f5f6f8;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
       color: #17202a;
     }
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 35px 16px 50px;
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 16px 50px;
     }
 
     .header {
@@ -35,403 +52,122 @@
       font-weight: 700;
     }
 
-    .card {
+    .header p {
+      margin-top: 8px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .widget-card {
       background: white;
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.07);
     }
 
-    label {
-      display: block;
-      margin-top: 18px;
-      margin-bottom: 7px;
-      font-size: 14px;
-      font-weight: 600;
-    }
+    /*
+      IATA Timatic Widget customization
+    */
 
-    input {
+    #iata-timatic-widget {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #d0d5dd;
-      border-radius: 9px;
-      font-size: 16px;
-      outline: none;
-      background: white;
+      max-width: 100%;
     }
 
-    input:focus {
-      border-color: #111827;
-    }
-
-    .button {
-      width: 100%;
-      margin-top: 24px;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #111827;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      opacity: 0.9;
-    }
-
-    .result {
-      margin-top: 22px;
-      padding: 18px;
-      border-radius: 12px;
-      background: #f3f4f6;
-    }
-
-    .result-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 10px 0;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      color: #667085;
-    }
-
-    .value {
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .final-result {
-      margin-top: 18px;
-      padding: 15px;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 20px;
-      font-weight: 800;
-      background: #e5e7eb;
-    }
-
-    .warning {
-      margin-top: 18px;
-      padding: 12px;
-      border-radius: 9px;
-      background: #fff7ed;
-      color: #9a3412;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .sources {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .sources-title {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .source-link {
-      display: block;
-      margin: 8px 0;
-      color: #1d4ed8;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .source-link:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 500px) {
-
-      .container {
-        padding-top: 25px;
-      }
-
-      .header h1 {
-        font-size: 24px;
-      }
-
-      .card {
-        padding: 20px;
-      }
-
-      .row {
-        flex-direction: column;
-        gap: 3px;
-      }
-
-      .value {
-        text-align: left;
-      }
-    }
   </style>
+
+  <!-- IATA Timatic configuration -->
+  <script>
+
+    /*
+      English interface
+    */
+
+    window.timaticWidgetLanguage = {
+      languageCode: "EN"
+    };
+
+
+    /*
+      Operating carrier:
+      FZ = flydubai
+    */
+
+    window.timaticAgencyDetails = {
+      operatingCarrier: "FZ"
+    };
+
+
+    /*
+      Show the detailed Timatic search.
+
+      This allows the official widget to display
+      the information required by Timatic.
+    */
+
+    window.timaticWidgetModes = {
+      openInDetailedSearch: true
+    };
+
+
+    /*
+      Display the main Timatic information
+      sections in a useful order:
+
+      C1 = Visa / Border measures
+      C2 = Passport / Travel documents
+      C3 = Health / Vaccinations
+    */
+
+    window.timaticVisibleSectionOrder = {
+      visibleSectionOrder: [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    };
+
+  </script>
+
 </head>
+
 
 <body>
 
-<div class="container">
+  <div class="page">
 
-  <div class="header">
-    <h1>Travel Information</h1>
-  </div>
+    <div class="header">
 
-
-  <div class="card">
-
-    <!-- PASSPORT NATIONALITY -->
-
-    <label for="passport">
-      Passport Nationality
-    </label>
-
-    <input
-      id="passport"
-      type="text"
-      placeholder="Example: Saudi Arabia"
-      autocomplete="off"
-    >
-
-
-    <!-- DESTINATION -->
-
-    <label for="destination">
-      Destination
-    </label>
-
-    <input
-      id="destination"
-      type="text"
-      placeholder="Example: Japan"
-      autocomplete="off"
-    >
-
-
-    <!-- CHECK -->
-
-    <button
-      class="button"
-      onclick="checkTravelInformation()"
-    >
-      Check TIM
-    </button>
-
-
-    <!-- RESULT -->
-
-    <div id="result"></div>
-
-
-    <!-- OFFICIAL SOURCES -->
-
-    <div class="sources">
-
-      <div class="sources-title">
-        Official References
-      </div>
-
-      <a
-        class="source-link"
-        href="https://www.emirates.com/sa/english/before-you-fly/visa-passport-information/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Emirates — Visa & Passport Information
-      </a>
-
-      <a
-        class="source-link"
-        href="https://www.flydubai.com/en/flying-with-us/visas-and-passports/visa-passport-requirements"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        flydubai — Visa & Passport Requirements
-      </a>
-
-    </div>
-
-
-    <div class="warning">
-      This tool is currently a reference interface.
-      Always verify the final travel requirements against
-      the current official TIM/IATA source before passenger acceptance.
-    </div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-function checkTravelInformation() {
-
-  const passport =
-    document.getElementById("passport")
-      .value
-      .trim();
-
-  const destination =
-    document.getElementById("destination")
-      .value
-      .trim();
-
-  const result =
-    document.getElementById("result");
-
-
-  /*
-   * INPUT VALIDATION
-   */
-
-  if (!passport || !destination) {
-
-    result.innerHTML = `
-      <div class="result">
-
-        <div class="result-title">
-          Missing Information
-        </div>
-
-        Please enter:
-
-        <br><br>
-
-        • Passport Nationality
-        <br>
-        • Destination
-
-      </div>
-    `;
-
-    return;
-  }
-
-
-  /*
-   * CURRENT VERSION
-   *
-   * The live TIM connection will be added later.
-   * No fictional visa result is generated here.
-   */
-
-  result.innerHTML = `
-
-    <div class="result">
-
-      <div class="result-title">
+      <h1>
         Travel Information
-      </div>
+      </h1>
 
-
-      <div class="row">
-
-        <span class="label">
-          Passport
-        </span>
-
-        <span class="value">
-          ${escapeHTML(passport)}
-        </span>
-
-      </div>
-
-
-      <div class="row">
-
-        <span class="label">
-          Destination
-        </span>
-
-        <span class="value">
-          ${escapeHTML(destination)}
-        </span>
-
-      </div>
-
-
-      <div class="row">
-
-        <span class="label">
-          Visa Required
-        </span>
-
-        <span class="value">
-          Verify Official Source
-        </span>
-
-      </div>
-
-
-      <div class="row">
-
-        <span class="label">
-          Visa on Arrival
-        </span>
-
-        <span class="value">
-          Verify Official Source
-        </span>
-
-      </div>
-
-
-      <div class="row">
-
-        <span class="label">
-          Passport Validity
-        </span>
-
-        <span class="value">
-          Verify Official Source
-        </span>
-
-      </div>
-
-
-      <div class="final-result">
-        OFFICIAL TIM CHECK REQUIRED
-      </div>
+      <p>
+        Official IATA Timatic
+      </p>
 
     </div>
 
-  `;
-}
+
+    <div class="widget-card">
+
+      <!-- Official IATA Timatic Widget -->
+
+      <div id="iata-timatic-widget"></div>
+
+    </div>
+
+  </div>
 
 
-/*
- * SECURITY
- */
+  <!-- Official IATA Timatic Widget JavaScript -->
 
-function escapeHTML(value) {
-
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-</script>
+  <script
+    src="https://widget.timatic.iata.org/scripts/v2/iata-timatic-widget-2.0.0.js"
+    type="text/javascript"
+    defer
+  ></script>
 
 </body>
+
 </html>
